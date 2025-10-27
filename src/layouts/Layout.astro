@@ -22,21 +22,16 @@ const { title, description = "Venta de organizadores al por mayor" } = Astro.pro
       <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
           <!-- Logo y nombre -->
-          <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-              <span class="text-white font-bold text-xl">O</span>
-            </div>
-            <a href="/" class="text-xl font-semibold text-gray-900">
-              OrganizaTodo
-            </a>
-          </div>
+          <a href="/" class="flex items-center space-x-3 hover:opacity-80 transition">
+            <img src="/logo.svg" alt="Cajas Ordenadoras" class="h-12 w-auto" />
+          </a>
 
           <!-- Menú -->
           <div class="hidden md:flex space-x-8">
-            <a href="/" class="text-gray-700 hover:text-blue-600 transition">
+            <a href="/" class="text-gray-700 hover:text-blue-600 transition font-medium">
               Venta Mayorista
             </a>
-            <a href="/contacto" class="text-gray-700 hover:text-blue-600 transition">
+            <a href="/contacto" class="text-gray-700 hover:text-blue-600 transition font-medium">
               Contacto
             </a>
           </div>
@@ -76,7 +71,7 @@ const { title, description = "Venta de organizadores al por mayor" } = Astro.pro
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <!-- Columna 1 -->
           <div>
-            <h3 class="text-white font-semibold mb-4">OrganizaTodo</h3>
+            <img src="/logo.svg" alt="Cajas Ordenadoras" class="h-16 w-auto mb-4" />
             <p class="text-sm">
               Organizadores de calidad para tu hogar. Venta al por mayor.
             </p>
@@ -95,15 +90,17 @@ const { title, description = "Venta de organizadores al por mayor" } = Astro.pro
           <div>
             <h3 class="text-white font-semibold mb-4">Contacto</h3>
             <ul class="space-y-2 text-sm">
-              <li>📱 WhatsApp: +54 9 11 XXXX-XXXX</li>
-              <li>📧 Email: info@organizatodo.com</li>
-              <li>📍 Buenos Aires, Argentina</li>
+              <li>👤 Pablo</li>
+              <li>📱 WhatsApp: <a href="https://wa.me/5491140461603" target="_blank" class="hover:text-white transition">11-4046-1603</a></li>
+              <li>📍 Juan De Garay 5437, Caseros</li>
+              <li>📍 Partido de 3 de Febrero, Buenos Aires</li>
+              <li>🕐 Lunes a Viernes: 9 a 16hs</li>
             </ul>
           </div>
         </div>
 
         <div class="border-t border-gray-800 mt-8 pt-8 text-center text-sm">
-          <p>&copy; 2025 OrganizaTodo. Todos los derechos reservados.</p>
+          <p>&copy; 2025 Cajas Ordenadoras. Todos los derechos reservados.</p>
         </div>
       </div>
     </footer>

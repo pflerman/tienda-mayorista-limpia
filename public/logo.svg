@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_2" data-name="Capa 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1836.72 629.03">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #706f6f;
+        font-family: OpenSans-Semibold, 'Open Sans';
+        font-size: 200px;
+        font-weight: 600;
+      }
+
+      .cls-2 {
+        fill: #92bd3c;
+        stroke: #fff;
+        stroke-miterlimit: 10;
+        stroke-width: 4px;
+      }
+
+      .cls-3 {
+        fill: #66348b;
+      }
+
+      .cls-4 {
+        fill: #ea528d;
+      }
+
+      .cls-5 {
+        fill: #4dade2;
+      }
+    </style>
+  </defs>
+  <polygon class="cls-5" points="655.84 93.34 817.52 186.69 979.2 93.34 817.52 0 655.84 93.34"/>
+  <polygon class="cls-3" points="837.52 206.69 837.52 393.38 999.2 300.03 999.2 113.34 837.52 206.69"/>
+  <path class="cls-2" d="M874.77,237.3v64.25c0,12.14,13.14,19.72,23.65,13.65l55.64-32.12c4.88-2.82,7.88-8.02,7.88-13.65v-64.25c0-12.14-13.14-19.72-23.65-13.65l-55.64,32.12c-4.88,2.82-7.88,8.02-7.88,13.65Z"/>
+  <polygon class="cls-4" points="758.37 295.17 758.37 325.57 674.99 277.43 674.99 181.16 758.37 229.29 758.37 245.04 797.52 267.64 797.52 206.69 635.84 113.34 635.84 300.03 797.52 393.38 797.52 317.77 758.37 295.17"/>
+  <text class="cls-1" transform="translate(0 572.59)"><tspan x="0" y="0">Cajas Ordenadoras</tspan></text>
+</svg>
