@@ -1,0 +1,162 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PriceCalculator from '../../components/PriceCalculator';
+import productos from '../../data/productos.json';
+
+// Esta función le dice a Astro qué páginas generar
+export async function getStaticPaths() {
+  return productos.productos.map((producto) => ({
+    params: { id: producto.id },
+  }));
+}
+
+// Obtener el ID del producto desde la URL
+const { id } = Astro.params;
+
+// Buscar el producto
+const producto = productos.productos.find(p => p.id === id);
+
+// Si no existe el producto, mostrar 404
+if (!producto) {
+  return Astro.redirect('/404');
+}
+
+// Preparar datos para el componente React
+const preciosData = {
+  precioMinorista: producto.precioMinorista,
+  preciosMayorista: producto.preciosMayorista
+};
+---
+
+<Layout 
+  title={`${producto.nombre} - OrganizaTodo`}
+  description={producto.descripcion}
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Breadcrumb -->
+    <nav class="mb-8 text-sm">
+      <a href="/" class="text-blue-600 hover:text-blue-800">Inicio</a>
+      <span class="mx-2 text-gray-400">/</span>
+      <a href="/productos" class="text-blue-600 hover:text-blue-800">Productos</a>
+      <span class="mx-2 text-gray-400">/</span>
+      <span class="text-gray-600">{producto.nombre}</span>
+    </nav>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <!-- COLUMNA IZQUIERDA: Imagen -->
+      <div>
+        <div class="bg-gray-100 rounded-xl overflow-hidden aspect-square flex items-center justify-center">
+          <img 
+            src={producto.imagenes[0]} 
+            alt={producto.nombre}
+            class="w-full h-full object-cover"
+            onError="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect fill=%22%23e5e7eb%22 width=%22400%22 height=%22400%22/%3E%3Ctext fill=%22%239ca3af%22 font-family=%22sans-serif%22 font-size=%2224%22 text-anchor=%22middle%22 x=%22200%22 y=%22200%22%3EImagen no disponible%3C/text%3E%3C/svg%3E'"
+          />
+        </div>
+        
+        <!-- Galería de miniaturas (para después, cuando tengas más fotos) -->
+        {producto.imagenes.length > 1 && (
+          <div class="grid grid-cols-4 gap-4 mt-4">
+            {producto.imagenes.map((img) => (
+              <div class="bg-gray-100 rounded-lg overflow-hidden aspect-square cursor-pointer hover:ring-2 hover:ring-blue-500">
+                <img src={img} alt={producto.nombre} class="w-full h-full object-cover" />
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <!-- COLUMNA DERECHA: Info del producto -->
+      <div>
+        <!-- Título -->
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          {producto.nombre}
+        </h1>
+
+        <!-- Categoría -->
+        <div class="mb-6">
+          <span class="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full">
+            {producto.categoria}
+          </span>
+        </div>
+
+        <!-- Descripción -->
+        <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+          {producto.descripcion}
+        </p>
+
+        <!-- Colores disponibles -->
+        <div class="mb-8">
+          <h3 class="text-lg font-semibold text-gray-900 mb-3">
+            Colores disponibles
+          </h3>
+          <div class="flex flex-wrap gap-3">
+            {producto.colores.map((color) => (
+              <button class="px-4 py-2 border-2 border-gray-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition">
+                {color}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <!-- Separador -->
+        <hr class="my-8" />
+
+        <!-- Calculadora de Precios (Componente React) -->
+        <PriceCalculator 
+          client:load
+          precioMinorista={preciosData.precioMinorista}
+          preciosMayorista={preciosData.preciosMayorista}
+          productoNombre={producto.nombre}
+        />
+
+        <!-- Información adicional -->
+        <div class="mt-8 bg-blue-50 rounded-lg p-6">
+          <h3 class="font-semibold text-gray-900 mb-3">
+            ℹ️ Información importante
+          </h3>
+          <ul class="space-y-2 text-sm text-gray-700">
+            <li>✓ Envíos a todo el país</li>
+            <li>✓ Precios mayoristas desde 6 unidades</li>
+            <li>✓ Consultas por WhatsApp</li>
+            <li>✓ Stock disponible</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección: Productos relacionados (después lo hacemos) -->
+    <div class="mt-20">
+      <h2 class="text-2xl font-bold text-gray-900 mb-8">
+        Productos relacionados
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {productos.productos
+          .filter(p => p.id !== producto.id && p.categoria === producto.categoria)
+          .slice(0, 3)
+          .map((relacionado) => (
+            <a 
+              href={`/producto/${relacionado.id}`}
+              class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition group"
+            >
+              <div class="h-48 bg-gray-200 flex items-center justify-center">
+                <img 
+                  src={relacionado.imagenes[0]} 
+                  alt={relacionado.nombre}
+                  class="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+                />
+              </div>
+              <div class="p-4">
+                <h3 class="font-semibold text-gray-900 mb-2">
+                  {relacionado.nombre}
+                </h3>
+                <p class="text-blue-600 font-bold">
+                  ${relacionado.precioMinorista.toLocaleString('es-AR')}
+                </p>
+              </div>
+            </a>
+          ))}
+      </div>
+    </div>
+  </div>
+</Layout>

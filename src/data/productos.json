@@ -1,0 +1,60 @@
+{
+  "productos": [
+    {
+      "id": "org-zapatos-tapa-rigida",
+      "nombre": "Organizador de Zapatos Tapa Rígida Premium",
+      "descripcion": "Guardá y protegé tus zapatos de forma ordenada. Las cajas con tapa rígida mantienen cada par separado, protegido del polvo y en perfecto estado. Hasta talle 40.",
+      "categoria": "zapatos",
+      "colores": ["Blanco", "Negro"],
+      "precioMinorista": 4200,
+      "preciosMayorista": [
+        { "cantidad": 30, "precio": 4000, "descuento": "5%" },
+        { "cantidad": 100, "precio": 3800, "descuento": "9.5%" }
+      ],
+      "imagenes": ["/productos/organizador-zapatos-tapa-rigida.jpg"],
+      "destacado": true
+    },
+    {
+      "id": "org-zapatos-12",
+      "nombre": "Organizador de Zapatos 12 Pares",
+      "descripcion": "Organizador de tela resistente con 12 compartimentos para zapatos. Ideal para ahorrar espacio en tu placard.",
+      "categoria": "zapatos",
+      "colores": ["Negro", "Gris", "Beige"],
+      "precioMinorista": 5000,
+      "preciosMayorista": [
+        { "cantidad": 6, "precio": 4200, "descuento": "16%" },
+        { "cantidad": 12, "precio": 3800, "descuento": "24%" }
+      ],
+      "imagenes": ["/productos/org-zapatos-12.jpg"],
+      "destacado": true
+    },
+    {
+      "id": "org-placard-6",
+      "nombre": "Organizador de Placard 6 Divisiones",
+      "descripcion": "Organizador colgante con 6 estantes para ropa, accesorios y más. Se cuelga fácilmente en la barra del placard.",
+      "categoria": "placard",
+      "colores": ["Gris", "Blanco"],
+      "precioMinorista": 7500,
+      "preciosMayorista": [
+        { "cantidad": 4, "precio": 6500, "descuento": "13%" },
+        { "cantidad": 8, "precio": 6000, "descuento": "20%" }
+      ],
+      "imagenes": ["/productos/org-placard-6.jpg"],
+      "destacado": true
+    },
+    {
+      "id": "caja-organizadora",
+      "nombre": "Caja Organizadora con Tapa",
+      "descripcion": "Caja plegable de tela con tapa y ventana transparente. Perfecta para guardar ropa de temporada, juguetes o accesorios.",
+      "categoria": "cajas",
+      "colores": ["Negro", "Gris", "Azul"],
+      "precioMinorista": 3500,
+      "preciosMayorista": [
+        { "cantidad": 10, "precio": 3000, "descuento": "14%" },
+        { "cantidad": 20, "precio": 2700, "descuento": "23%" }
+      ],
+      "imagenes": ["/productos/caja-organizadora.jpg"],
+      "destacado": false
+    }
+  ]
+}

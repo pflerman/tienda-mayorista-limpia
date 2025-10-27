@@ -1,0 +1,182 @@
+---
+import Layout from '../layouts/Layout.astro';
+import productos from '../data/productos.json';
+
+// Filtrar solo productos destacados
+const productosDestacados = productos.productos.filter(p => p.destacado);
+---
+
+<Layout title="OrganizaTodo - Organizadores al por Mayor y Menor">
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-br from-blue-600 to-blue-800 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+      <h1 class="text-4xl md:text-6xl font-bold mb-6">
+        Organizá tu espacio con estilo
+      </h1>
+      <p class="text-xl md:text-2xl mb-8 text-blue-100">
+        Organizadores de calidad para tu hogar y negocio
+      </p>
+      <p class="text-lg mb-10 text-blue-50">
+        Venta al por mayor y menor • Precios especiales para revendedores
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a 
+          href="/productos" 
+          class="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-blue-50 transition text-lg shadow-lg"
+        >
+          Ver Catálogo
+        </a>
+        <a 
+          href="/mayoristas" 
+          class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition text-lg"
+        >
+          Venta Mayorista
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Productos Destacados -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+        Productos Destacados
+      </h2>
+      <p class="text-lg text-gray-600">
+        Los más elegidos por nuestros clientes
+      </p>
+    </div>
+
+    <!-- Grid de productos -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {productosDestacados.map((producto) => (
+        <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition group">
+          <!-- Imagen -->
+          <div class="h-64 bg-gray-200 flex items-center justify-center overflow-hidden">
+            <img 
+              src={producto.imagenes[0]} 
+              alt={producto.nombre}
+              class="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+              onError="this.src='/placeholder-product.jpg'"
+            />
+          </div>
+
+          <!-- Contenido -->
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">
+              {producto.nombre}
+            </h3>
+            <p class="text-gray-600 mb-4 text-sm line-clamp-2">
+              {producto.descripcion}
+            </p>
+
+            <!-- Colores disponibles -->
+            <div class="flex items-center gap-2 mb-4">
+              <span class="text-sm text-gray-500">Colores:</span>
+              <div class="flex gap-2">
+                {producto.colores.slice(0, 3).map((color) => (
+                  <span class="text-xs bg-gray-100 px-2 py-1 rounded">
+                    {color}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <!-- Precio -->
+            <div class="mb-4">
+              <div class="flex items-baseline gap-2">
+                <span class="text-2xl font-bold text-gray-900">
+                  ${producto.precioMinorista.toLocaleString('es-AR')}
+                </span>
+                <span class="text-sm text-gray-500">unidad</span>
+              </div>
+              <p class="text-sm text-green-600 font-medium mt-1">
+                Desde ${producto.preciosMayorista[0].precio.toLocaleString('es-AR')} por mayor
+              </p>
+            </div>
+
+            <!-- Botón -->
+            <a 
+              href={`/producto/${producto.id}`}
+              class="block w-full bg-blue-600 text-white text-center py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+            >
+              Ver Detalles
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Ver todos los productos -->
+    <div class="text-center mt-12">
+      <a 
+        href="/productos" 
+        class="inline-block bg-gray-900 text-white px-8 py-4 rounded-lg font-semibold hover:bg-gray-800 transition"
+      >
+        Ver Todos los Productos →
+      </a>
+    </div>
+  </section>
+
+  <!-- Beneficios -->
+  <section class="bg-gray-100 py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Beneficio 1 -->
+        <div class="text-center">
+          <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Calidad Garantizada</h3>
+          <p class="text-gray-600">
+            Productos resistentes y duraderos para uso diario
+          </p>
+        </div>
+
+        <!-- Beneficio 2 -->
+        <div class="text-center">
+          <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Precios Mayoristas</h3>
+          <p class="text-gray-600">
+            Descuentos especiales para revendedores desde 6 unidades
+          </p>
+        </div>
+
+        <!-- Beneficio 3 -->
+        <div class="text-center">
+          <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Envíos a Todo el País</h3>
+          <p class="text-gray-600">
+            Llegamos a toda Argentina de forma rápida y segura
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+      ¿Querés vender nuestros productos?
+    </h2>
+    <p class="text-xl text-gray-600 mb-8">
+      Convertite en revendedor y accedé a precios especiales
+    </p>
+    <a 
+      href="/mayoristas" 
+      class="inline-block bg-blue-600 text-white px-10 py-4 rounded-lg font-semibold hover:bg-blue-700 transition text-lg shadow-lg"
+    >
+      Quiero ser Revendedor
+    </a>
+  </section>
+</Layout>

@@ -1,0 +1,134 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Venta de organizadores al por mayor y menor" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body class="min-h-screen bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+      <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <!-- Logo y nombre -->
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+              <span class="text-white font-bold text-xl">O</span>
+            </div>
+            <a href="/" class="text-xl font-semibold text-gray-900">
+              OrganizaTodo
+            </a>
+          </div>
+
+          <!-- Menú -->
+          <div class="hidden md:flex space-x-8">
+            <a href="/" class="text-gray-700 hover:text-blue-600 transition">
+              Inicio
+            </a>
+            <a href="/productos" class="text-gray-700 hover:text-blue-600 transition">
+              Productos
+            </a>
+            <a href="/mayoristas" class="text-gray-700 hover:text-blue-600 transition">
+              Venta Mayorista
+            </a>
+            <a href="/contacto" class="text-gray-700 hover:text-blue-600 transition">
+              Contacto
+            </a>
+          </div>
+
+          <!-- Menú móvil (hamburguesa) -->
+          <div class="md:hidden">
+            <button id="mobile-menu-btn" class="text-gray-700">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Menú móvil desplegable -->
+        <div id="mobile-menu" class="hidden md:hidden pb-4">
+          <div class="flex flex-col space-y-3">
+            <a href="/" class="text-gray-700 hover:text-blue-600 transition">
+              Inicio
+            </a>
+            <a href="/productos" class="text-gray-700 hover:text-blue-600 transition">
+              Productos
+            </a>
+            <a href="/mayoristas" class="text-gray-700 hover:text-blue-600 transition">
+              Venta Mayorista
+            </a>
+            <a href="/contacto" class="text-gray-700 hover:text-blue-600 transition">
+              Contacto
+            </a>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Contenido principal -->
+    <main>
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 mt-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Columna 1 -->
+          <div>
+            <h3 class="text-white font-semibold mb-4">OrganizaTodo</h3>
+            <p class="text-sm">
+              Organizadores de calidad para tu hogar. Venta al por mayor y menor.
+            </p>
+          </div>
+
+          <!-- Columna 2 -->
+          <div>
+            <h3 class="text-white font-semibold mb-4">Enlaces</h3>
+            <ul class="space-y-2 text-sm">
+              <li><a href="/productos" class="hover:text-white transition">Productos</a></li>
+              <li><a href="/mayoristas" class="hover:text-white transition">Venta Mayorista</a></li>
+              <li><a href="/contacto" class="hover:text-white transition">Contacto</a></li>
+            </ul>
+          </div>
+
+          <!-- Columna 3 -->
+          <div>
+            <h3 class="text-white font-semibold mb-4">Contacto</h3>
+            <ul class="space-y-2 text-sm">
+              <li>📱 WhatsApp: +54 9 11 XXXX-XXXX</li>
+              <li>📧 Email: info@organizatodo.com</li>
+              <li>📍 Buenos Aires, Argentina</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="border-t border-gray-800 mt-8 pt-8 text-center text-sm">
+          <p>&copy; 2025 OrganizaTodo. Todos los derechos reservados.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Script para menú móvil -->
+    <script>
+      const btn = document.getElementById('mobile-menu-btn');
+      const menu = document.getElementById('mobile-menu');
+      
+      btn?.addEventListener('click', () => {
+        menu?.classList.toggle('hidden');
+      });
+    </script>
+  </body>
+</html>
