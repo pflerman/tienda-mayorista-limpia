@@ -4,7 +4,7 @@ interface Props {
   description?: string;
 }
 
-const { title, description = "Venta de organizadores al por mayor y menor" } = Astro.props;
+const { title, description = "Venta de organizadores al por mayor" } = Astro.props;
 ---
 
 <!doctype html>
@@ -34,12 +34,6 @@ const { title, description = "Venta de organizadores al por mayor y menor" } = A
           <!-- Menú -->
           <div class="hidden md:flex space-x-8">
             <a href="/" class="text-gray-700 hover:text-blue-600 transition">
-              Inicio
-            </a>
-            <a href="/productos" class="text-gray-700 hover:text-blue-600 transition">
-              Productos
-            </a>
-            <a href="/mayoristas" class="text-gray-700 hover:text-blue-600 transition">
               Venta Mayorista
             </a>
             <a href="/contacto" class="text-gray-700 hover:text-blue-600 transition">
@@ -61,12 +55,6 @@ const { title, description = "Venta de organizadores al por mayor y menor" } = A
         <div id="mobile-menu" class="hidden md:hidden pb-4">
           <div class="flex flex-col space-y-3">
             <a href="/" class="text-gray-700 hover:text-blue-600 transition">
-              Inicio
-            </a>
-            <a href="/productos" class="text-gray-700 hover:text-blue-600 transition">
-              Productos
-            </a>
-            <a href="/mayoristas" class="text-gray-700 hover:text-blue-600 transition">
               Venta Mayorista
             </a>
             <a href="/contacto" class="text-gray-700 hover:text-blue-600 transition">
@@ -90,7 +78,7 @@ const { title, description = "Venta de organizadores al por mayor y menor" } = A
           <div>
             <h3 class="text-white font-semibold mb-4">OrganizaTodo</h3>
             <p class="text-sm">
-              Organizadores de calidad para tu hogar. Venta al por mayor y menor.
+              Organizadores de calidad para tu hogar. Venta al por mayor.
             </p>
           </div>
 
@@ -98,8 +86,7 @@ const { title, description = "Venta de organizadores al por mayor y menor" } = A
           <div>
             <h3 class="text-white font-semibold mb-4">Enlaces</h3>
             <ul class="space-y-2 text-sm">
-              <li><a href="/productos" class="hover:text-white transition">Productos</a></li>
-              <li><a href="/mayoristas" class="hover:text-white transition">Venta Mayorista</a></li>
+              <li><a href="/" class="hover:text-white transition">Venta Mayorista</a></li>
               <li><a href="/contacto" class="hover:text-white transition">Contacto</a></li>
             </ul>
           </div>
