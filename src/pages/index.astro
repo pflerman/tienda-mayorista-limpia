@@ -69,6 +69,7 @@ import CarritoMayorista from '../components/CarritoMayorista';
       const { data: productos, error } = await supabase
         .from('productos_tienda')
         .select('*')
+        .order('orden', { ascending: true })
         .order('created_at', { ascending: false });
 
       loading?.classList.add('hidden');

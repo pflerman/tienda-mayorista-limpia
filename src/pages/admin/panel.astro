@@ -22,7 +22,8 @@ import Layout from '../../layouts/Layout.astro';
             <p class="text-sm text-gray-600">Gestión de productos mayoristas</p>
           </div>
           <div class="flex items-center gap-4">
-            <a
+            
+            <a  
               href="/"
               target="_blank"
               class="text-blue-600 hover:text-blue-800 text-sm"
@@ -56,9 +57,14 @@ import Layout from '../../layouts/Layout.astro';
 
       <!-- Lista de productos -->
       <div class="bg-white rounded-xl shadow-md p-6">
-        <h2 class="text-xl font-bold text-gray-900 mb-6">
-          Productos Activos
-        </h2>
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-xl font-bold text-gray-900">
+            Productos Activos
+          </h2>
+          <p class="text-sm text-gray-500">
+            💡 Arrastrá los productos para cambiar el orden
+          </p>
+        </div>
         
         <div id="loading" class="text-center py-12">
           <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
@@ -195,6 +201,7 @@ import Layout from '../../layouts/Layout.astro';
     let fotoSeleccionada: File | null = null;
     let fotoURLActual: string | null = null;
     let productoEditando: any = null;
+    let productosGlobal: any[] = [];
 
     // Logout
     document.getElementById('logout-btn')?.addEventListener('click', () => {
@@ -364,7 +371,8 @@ import Layout from '../../layouts/Layout.astro';
       const datos = {
         titulo,
         precio,
-        foto: fotoURL
+        foto: fotoURL,
+        orden: productoEditando ? productoEditando.orden : productosGlobal.length
       };
 
       let error;
@@ -395,6 +403,10 @@ import Layout from '../../layouts/Layout.astro';
       cargarProductos();
     });
 
+    // Variables para drag & drop
+    let draggedElement: HTMLElement | null = null;
+    let draggedProductId: string | null = null;
+
     // Cargar productos
     async function cargarProductos() {
       const loading = document.getElementById('loading');
@@ -408,6 +420,7 @@ import Layout from '../../layouts/Layout.astro';
       const { data: productos, error } = await supabase
         .from('productos_tienda')
         .select('*')
+        .order('orden', { ascending: true })
         .order('created_at', { ascending: false });
 
       loading?.classList.add('hidden');
@@ -423,8 +436,19 @@ import Layout from '../../layouts/Layout.astro';
         return;
       }
 
+      productosGlobal = productos;
+
       lista!.innerHTML = productos.map(prod => `
-        <div class="border rounded-lg p-4 flex items-center gap-4">
+        <div 
+          class="producto-item border rounded-lg p-4 flex items-center gap-4 cursor-move hover:bg-gray-50 transition"
+          draggable="true"
+          data-producto-id="${prod.id}"
+        >
+          <div class="text-gray-400">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16" />
+            </svg>
+          </div>
           <img 
             src="${prod.foto || ''}" 
             alt="${prod.titulo}" 
@@ -447,6 +471,79 @@ import Layout from '../../layouts/Layout.astro';
       `).join('');
 
       lista?.classList.remove('hidden');
+      
+      // Configurar drag & drop
+      configurarDragAndDrop();
+    }
+
+    // Configurar drag & drop
+    function configurarDragAndDrop() {
+      const items = document.querySelectorAll('.producto-item');
+      
+      items.forEach(item => {
+        item.addEventListener('dragstart', (e) => {
+          draggedElement = item as HTMLElement;
+          draggedProductId = item.getAttribute('data-producto-id');
+          item.classList.add('opacity-50');
+        });
+
+        item.addEventListener('dragend', (e) => {
+          item.classList.remove('opacity-50');
+        });
+
+        item.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          const afterElement = getDragAfterElement(e.currentTarget as HTMLElement, e.clientY);
+          const lista = document.getElementById('productos-lista');
+          
+          if (afterElement == null) {
+            lista?.appendChild(draggedElement!);
+          } else {
+            lista?.insertBefore(draggedElement!, afterElement);
+          }
+        });
+
+        item.addEventListener('drop', async (e) => {
+          e.preventDefault();
+          await actualizarOrden();
+        });
+      });
+    }
+
+    function getDragAfterElement(container: HTMLElement, y: number) {
+      const draggableElements = [...document.querySelectorAll('.producto-item:not(.opacity-50)')];
+
+      return draggableElements.reduce((closest: any, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height / 2;
+
+        if (offset < 0 && offset > closest.offset) {
+          return { offset: offset, element: child };
+        } else {
+          return closest;
+        }
+      }, { offset: Number.NEGATIVE_INFINITY }).element;
+    }
+
+    // Actualizar orden en Supabase
+    async function actualizarOrden() {
+      const items = document.querySelectorAll('.producto-item');
+      const updates = [];
+
+      items.forEach((item, index) => {
+        const id = item.getAttribute('data-producto-id');
+        updates.push({ id, orden: index });
+      });
+
+      // Actualizar todos los productos
+      for (const update of updates) {
+        await supabase
+          .from('productos_tienda')
+          .update({ orden: update.orden })
+          .eq('id', update.id);
+      }
+
+      console.log('Orden actualizado');
     }
 
     // Eliminar producto
