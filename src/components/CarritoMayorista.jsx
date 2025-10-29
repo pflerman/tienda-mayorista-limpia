@@ -176,31 +176,33 @@ export default function CarritoMayorista({ productos }) {
                         <p className="text-xs text-gray-600">${item.precio.toLocaleString('es-AR')} x unidad</p>
                         
                         <div className="flex items-center gap-2 mt-2">
-                          <button
-                            onClick={() => actualizarCantidad(item.id, item.cantidad - 1)}
-                            className="w-8 h-8 bg-gray-200 rounded hover:bg-gray-300 flex-shrink-0"
-                          >
-                            −
-                          </button>
-                          <input
-                            type="number"
-                            value={item.cantidad}
-                            onChange={(e) => actualizarCantidad(item.id, parseInt(e.target.value) || 0)}
-                            className="w-16 text-center border rounded py-1 text-sm"
-                          />
-                          <button
-                            onClick={() => actualizarCantidad(item.id, item.cantidad + 1)}
-                            className="w-8 h-8 bg-gray-200 rounded hover:bg-gray-300 flex-shrink-0"
-                          >
-                            +
-                          </button>
+                          <div className="flex items-center gap-2">
+                            <button
+                              onClick={() => actualizarCantidad(item.id, item.cantidad - 1)}
+                              className="w-8 h-8 bg-gray-200 rounded hover:bg-gray-300 flex-shrink-0"
+                            >
+                              −
+                            </button>
+                            <input
+                              type="number"
+                              value={item.cantidad}
+                              onChange={(e) => actualizarCantidad(item.id, parseInt(e.target.value) || 0)}
+                              className="w-16 text-center border rounded py-1 text-sm"
+                            />
+                            <button
+                              onClick={() => actualizarCantidad(item.id, item.cantidad + 1)}
+                              className="w-8 h-8 bg-gray-200 rounded hover:bg-gray-300 flex-shrink-0"
+                            >
+                              +
+                            </button>
+                          </div>
                           <button
                             onClick={() => eliminarItem(item.id)}
-                            className="ml-auto text-red-600 hover:text-red-800 p-2 hover:bg-red-50 rounded transition"
+                            className="ml-auto w-10 h-10 flex items-center justify-center text-red-600 hover:text-red-800 bg-red-50 hover:bg-red-100 rounded-lg transition flex-shrink-0"
                             aria-label="Eliminar producto"
                           >
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                             </svg>
                           </button>
                         </div>
