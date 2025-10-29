@@ -175,7 +175,7 @@ export default function CarritoMayorista({ productos }) {
                         <h3 className="font-semibold text-gray-900 text-sm">{item.nombre}</h3>
                         <p className="text-xs text-gray-600">${item.precio.toLocaleString('es-AR')} x unidad</p>
                         
-                        <div className="flex items-center gap-2 mt-2">
+                        <div className="flex items-center gap-3 mt-2">
                           <button
                             onClick={() => actualizarCantidad(item.id, item.cantidad - 1)}
                             className="w-8 h-8 bg-gray-200 rounded hover:bg-gray-300 flex-shrink-0"
@@ -196,7 +196,7 @@ export default function CarritoMayorista({ productos }) {
                           </button>
                           <button
                             onClick={() => eliminarItem(item.id)}
-                            className="ml-auto bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 text-sm font-semibold whitespace-nowrap"
+                            className="ml-auto bg-red-600 text-white px-5 py-3 rounded hover:bg-red-700 text-sm font-semibold whitespace-nowrap min-w-[90px]"
                           >
                             Eliminar
                           </button>
