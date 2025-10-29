@@ -165,25 +165,14 @@ export default function CarritoMayorista({ productos }) {
               ) : (
                 <div className="space-y-4">
                   {carrito.map((item) => (
-                    <div key={item.id} className="flex gap-4 bg-gray-50 p-4 rounded-lg relative">
-                      {/* Botón eliminar arriba a la derecha */}
-                      <button
-                        onClick={() => eliminarItem(item.id)}
-                        className="absolute top-2 right-2 w-10 h-10 flex items-center justify-center text-white bg-red-600 hover:bg-red-700 rounded-full shadow-lg z-10"
-                        aria-label="Eliminar producto"
-                      >
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                      </button>
-
+                    <div key={item.id} className="flex gap-4 bg-gray-50 p-4 rounded-lg">
                       <img
                         src={item.imagen}
                         alt={item.nombre}
                         className="w-20 h-20 object-contain bg-white rounded p-1 flex-shrink-0"
                       />
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-gray-900 text-sm pr-12">{item.nombre}</h3>
+                        <h3 className="font-semibold text-gray-900 text-sm">{item.nombre}</h3>
                         <p className="text-xs text-gray-600">${item.precio.toLocaleString('es-AR')} x unidad</p>
                         
                         <div className="flex items-center gap-2 mt-2">
@@ -205,9 +194,15 @@ export default function CarritoMayorista({ productos }) {
                           >
                             +
                           </button>
+                          <button
+                            onClick={() => eliminarItem(item.id)}
+                            className="ml-auto bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 text-sm font-semibold whitespace-nowrap"
+                          >
+                            Eliminar
+                          </button>
                         </div>
                       </div>
-                      <div className="text-right flex-shrink-0 pt-8">
+                      <div className="text-right flex-shrink-0">
                         <p className="font-bold text-sm break-all">
                           ${(item.precio * item.cantidad).toLocaleString('es-AR')}
                         </p>
