@@ -175,6 +175,30 @@ export default function CarritoMayorista({ productos }) {
                         <h3 className="font-semibold text-gray-900 text-sm">{item.nombre}</h3>
                         <p className="text-xs text-gray-600">${item.precio.toLocaleString('es-AR')} x unidad</p>
                         
+                        {/* Botones de cantidad rápida */}
+                        <div className="flex items-center gap-2 mt-2">
+                          <span className="text-xs text-gray-600 mr-1">Rápido:</span>
+                          <button
+                            onClick={() => actualizarCantidad(item.id, 5)}
+                            className="px-3 py-1 rounded text-sm font-medium bg-gray-200 text-gray-700 hover:bg-gray-300"
+                          >
+                            5
+                          </button>
+                          <button
+                            onClick={() => actualizarCantidad(item.id, 10)}
+                            className="px-3 py-1 rounded text-sm font-medium bg-gray-200 text-gray-700 hover:bg-gray-300"
+                          >
+                            10
+                          </button>
+                          <button
+                            onClick={() => actualizarCantidad(item.id, 15)}
+                            className="px-3 py-1 rounded text-sm font-medium bg-gray-200 text-gray-700 hover:bg-gray-300"
+                          >
+                            15
+                          </button>
+                        </div>
+                        
+                        {/* Controles manuales originales */}
                         <div className="flex items-center gap-3 mt-2">
                           <button
                             onClick={() => actualizarCantidad(item.id, item.cantidad - 1)}
