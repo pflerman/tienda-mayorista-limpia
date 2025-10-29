@@ -207,7 +207,7 @@ export default function CarritoMayorista({ productos }) {
                           </button>
                         </div>
                       </div>
-                      <div className="text-right flex-shrink-0">
+                      <div className="text-right flex-shrink-0 pt-8">
                         <p className="font-bold text-sm break-all">
                           ${(item.precio * item.cantidad).toLocaleString('es-AR')}
                         </p>
